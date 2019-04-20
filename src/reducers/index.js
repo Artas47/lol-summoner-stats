@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import lolReducer from './lolReducer';
+import userReducer from './userReducer';
 import matchesReducer from './matchesReducer';
 import {reducer as formReducer} from 'redux-form';
 
 export default combineReducers({
-  user: lolReducer,
+  user: userReducer,
   matches: matchesReducer,
   form: formReducer
 })
