@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../actions/index';
 import {Field, reduxForm} from 'redux-form';
 
+import './SummonerSearchBar.scss';
+import { relative } from 'path';
 
 class SummonerSearch extends Component {
 
   renderError = (formProps) => {
-    console.log('rendererror',formProps)
     if(formProps.meta.touched && formProps.meta.error && formProps.meta.submitFailed){
       return(
         <div>{formProps.meta.error}</div>
@@ -19,10 +20,11 @@ class SummonerSearch extends Component {
   renderInput = (formProps) => {
     return(
       <div>
-        <label>{formProps.label}</label>
-        <input {...formProps.input} autoComplete='off'/>
+        <label className='header--label'>{formProps.label}</label>
+        <div className=''>
+          <input  className='header--input' {...formProps.input} autoComplete='off'/>
+        </div>
         <div>{this.renderError(formProps)}</div>
-        {console.log('meta',formProps.meta)}
       </div>
     )
   }
@@ -30,7 +32,7 @@ class SummonerSearch extends Component {
   renderSelect = (formProps) => {
     return(
       <div>
-        <select  {...formProps.input}>
+        <select className='header--select' {...formProps.input}>
           <option value='euw1'>EU WEST</option>
           <option value='eun1'>EU NE</option>
         </select>
@@ -44,22 +46,14 @@ class SummonerSearch extends Component {
 
   render() {
     return (
-      <div>
-        {/* <select onChange={this.onSelectHandler}>
-          <option value="EUW1">EU WEST</option>
-          <option value="EUN1">EU NE</option>
-        </select>
-        <input value={this.state.searchTerm} onChange={this.onChangeHandler}/>
-        <button onClick={() => this.props.fetchUser(this.state.searchTerm, this.state.server)}>SUBMIT</button>
-        {console.log('e',this.props.user)} */}
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          
-            <Field name='summonerName' component={this.renderInput} label='Enter a summoner name'/>
-            <Field name='serverSelection' component={this.renderSelect} />
-          
-          <button >Submit</button>
-          {console.log(this.props.user)}
-        </form>
+      <div style={{position: relative}}>
+        <div className='header'>
+          <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+              <Field name='summonerName' component={this.renderInput} label='Enter a summoner name'/>
+              <Field name='serverSelection' component={this.renderSelect} />
+            <button className='header--submit'>Submit</button>
+          </form>
+        </div>
       </div>
     )
   }

@@ -1,0 +1,33 @@
+.header{
+  font-size: 62.5%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  letter-spacing: .5px;
+  &--label{
+    display: block;
+    font-size: 3rem;
+    text-transform: uppercase;
+  }
+  &--input{
+    margin: 1.5rem 0;
+    border: none;
+    background-color: #ccc;
+    border-radius: 100px;
+    text-align: center;
+    outline: none;
+    padding: 1rem 2rem;
+  }
+  &--select{
+    margin-bottom: 1.5rem;
+  }
+  &--submit{
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 100px;
+    outline: none;
+  }
+}
