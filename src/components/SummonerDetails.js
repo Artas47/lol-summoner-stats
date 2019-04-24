@@ -12,19 +12,20 @@ class SummonerDetails extends Component {
     this.props.fetchUserMatches(this.props.match.params.accountId, this.props.match.params.server)
   }
 
-  renderDetails = () => {
-    if(!this.props.user.summonerLevel){
+  componentDidUpdate = (prevProps) => {
+    if(!prevProps.user.id){
       this.props.fetchUser(this.props.match.params.summonerName, this.props.match.params.server)
     }
+  }
+  
+  renderDetails = () => {
     return (
-      <div>
-      <div>
-        {this.props.user.name}
-      </div>
-        <div>
-          <span>{this.props.user.summonerLevel}</span>
-          <img src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${this.props.user.profileIconId}.jpg`} />
+      <div className='user-box'>
+        <div className='user-box--name'>
+          {this.props.user.name}
         </div>
+          <span className='user-box--level'>{this.props.user.summonerLevel}</span>
+          <img className='user-box--img' src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${this.props.user.profileIconId}.jpg`} />
       </div>
     )
   }
@@ -35,8 +36,6 @@ class SummonerDetails extends Component {
     })
   }
 
-
-
   render() {
     return (
       <div className='details'>
@@ -45,8 +44,10 @@ class SummonerDetails extends Component {
         </div>
         <div>
           <div>
-            {this.renderDetails()}    
-            {this.renderMatches()}  
+            {this.renderDetails()}  
+            <div className='matches-box'>
+              {this.renderMatches()}  
+            </div>  
           </div>
         </div>
       </div>

@@ -5,10 +5,10 @@
 import axios from 'axios';
 import history from '../history';
 
-const API_KEY = 'RGAPI-1306f8cd-b415-4c62-9735-d9d98ed60236';
+const API_KEY = 'RGAPI-1236e86e-3380-4b79-b66c-92469859f736';
 
 
-export const fetchUser = (summonerName, server) => async (dispatch, getState) => {
+export const fetchUser = (summonerName, server) => async (dispatch) => {
   const response = await axios.get(`https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${API_KEY}`)
   
   dispatch({type: 'FETCH_USER', payload: response.data})
@@ -16,10 +16,11 @@ export const fetchUser = (summonerName, server) => async (dispatch, getState) =>
 }
 
 
-export const fetchUserMatches = (accountId, server) => async (dispatch) => {
+export const fetchUserMatches = (accountId, server) => async (dispatch, getState) => {
   const response = await axios.get(`https://${server}.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=10&api_key=${API_KEY}`)
 
   dispatch({type: 'FETCH_MATCHES', payload: response.data.matches})
+  console.log('getsate',getState())
 }
 
 export const fetchMatchesDetails = (matchId, server) => async (dispatch, getState) => {
