@@ -38,7 +38,7 @@ class SummonerDetails extends Component {
     return (
       <div>NO LEAGUE</div>
     )
-    
+  
   }
   
   renderDetails = () => {
