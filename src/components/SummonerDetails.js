@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {fetchUserMatches, fetchUser} from '../actions';
+import {fetchUserMatches, fetchUser, fetchUserLeagueDetails} from '../actions';
 import {Link} from 'react-router-dom';
 import Match from './Match';
+
 
 import './SummonerDetails.scss';
 
@@ -10,12 +11,34 @@ import './SummonerDetails.scss';
 class SummonerDetails extends Component {
   componentDidMount = () => {
     this.props.fetchUserMatches(this.props.match.params.accountId, this.props.match.params.server)
+    this.props.fetchUserLeagueDetails(this.props.match.params.userId, this.props.match.params.server)
   }
 
   componentDidUpdate = (prevProps) => {
     if(!prevProps.user.id){
       this.props.fetchUser(this.props.match.params.summonerName, this.props.match.params.server)
     }
+  }
+
+  renderLeague = () => {
+    if(this.props.league[0]){
+      return(
+        <div>
+          <div>
+            {this.props.league[0].tier}
+            {this.props.league[0].rank}
+          </div>
+          <div>
+            WINS : {this.props.league[0].wins}
+            LOSSES : {this.props.league[0].losses}
+          </div>
+        </div>
+      )
+    }
+    return (
+      <div>NO LEAGUE</div>
+    )
+    
   }
   
   renderDetails = () => {
@@ -26,13 +49,14 @@ class SummonerDetails extends Component {
         </div>
           <span className='user-box--level'>{this.props.user.summonerLevel}</span>
           <img className='user-box--img' src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${this.props.user.profileIconId}.jpg`} />
+          {this.renderLeague()}
       </div>
     )
   }
 
   renderMatches = () => {
     return this.props.matches.map((match) => {
-     return <Match lane={match.lane} championId={match.champion}/>
+     return <Match matchId={match.gameId} lane={match.lane} championId={match.champion}/>
     })
   }
 
@@ -56,7 +80,7 @@ class SummonerDetails extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {user: state.user, formValues: state.form, matches: Object.values(state.matches)}
+  return {user: state.user, league: state.league, formValues: state.form, matches: Object.values(state.matches)}
 }
 
-export default connect(mapStateToProps, {fetchUserMatches, fetchUser})(SummonerDetails);
+export default connect(mapStateToProps, {fetchUserMatches, fetchUser, fetchUserLeagueDetails})(SummonerDetails);

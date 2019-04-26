@@ -132,7 +132,7 @@ export default class Match extends Component {
       case 201: return "Braum"; break;
       case 5: return "XinZhao"; break;
       case 29: return "Twitch"; break;
-      case 11: return "Master Yi"; break;
+      case 11: return "MasterYi"; break;
       case 44: return "Taric"; break;
       case 32: return "Amumu"; break;
       case 41: return "Gangplank"; break;
@@ -159,7 +159,5 @@ export default class Match extends Component {
       </div>
     )
   }
-
-  
 }
 
